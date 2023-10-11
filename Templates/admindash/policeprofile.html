@@ -1,0 +1,83 @@
+{% extends 'index2.html' %}
+{% load static %}
+{% block sec %}
+<style>
+    /* Custom CSS for the Police Profile */
+    .police-profile {
+        padding: 20px;
+    }
+
+    .police-profile h1 {
+        font-size: 24px;
+        color: #333;
+    }
+
+    table.police-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table.police-table th, table.police-table td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+    }
+
+    table.police-table th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+
+    .btn-success {
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .btn-success:hover {
+        background-color: #45a049;
+    }
+</style>
+{% endblock %}
+{% block title %}Police Profile{% endblock %}
+{% block content %}
+<div class="police-profile">
+    <h1>Police Profile</h1>
+    <table class="police-table">
+        <thead>
+            <tr>
+                <th>Police ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>Phone</th>
+                <th>Gender</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ police.policeid }}</td>
+                <td>{{ police.full_name }}</td>
+                <td>{{ police.email }}</td>
+                <td>{{ police.age }}</td>
+                <td>{{ police.phone }}</td>
+                <td>{{ police.gender }}</td>
+                <td>{{ police.status }}</td>
+                <td>
+                    <a class="btn-success" href="{% url 'approve_police' police.pk %}">Approve</a>
+                    <a class="btn-success" href="{% url 'reject_police' police.pk %}">Reject</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

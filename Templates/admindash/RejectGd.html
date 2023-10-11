@@ -1,0 +1,79 @@
+{% extends 'index2.html' %}
+{% load static %}
+{% block sec %}
+    <style>
+        /* Custom CSS for the rejection list */
+        .rejection-list {
+            padding: 124px;
+        }
+
+        .rejection-list h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .table-bordered {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-bordered th, .table-bordered td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .table-bordered th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .table-bordered td {
+            text-align: left;
+        }
+
+        .btn-success {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-success:hover {
+            background-color: #45a049;
+        }
+    </style>
+{% endblock %}
+{% block title %}Rejection List{% endblock %}
+{% block content %}
+<div class="rejection-list">
+    <h1>Rejection List</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Gd_ID</th>
+                <th>National ID</th>
+                <th>Status</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for person in rejection_list %}
+            <tr>
+                <td>{{ person.full_name }}</td>
+                <td>{{ person.subject }}</td>
+                <td>{{ person.gd_id }}</td>
+                <td>{{ person.national_id }}</td>
+                <td>{{ person.status }}</td>
+                <td>
+                    <a class="btn-view" href="{% url 'gd_details' gd_id=person.gd_id %}">View</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block code %}
+<style>
+    /* Custom CSS for the GD list */
+    .gd-list {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .gd-list h1 {
+        font-size: 24px;
+        color: #333;
+    }
+
+    .table-bordered {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+    .table-bordered th, .table-bordered td {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    .table-bordered th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+
+    .table-bordered td {
+        text-align: center;
+    }
+
+    .btn-view {
+        background-color: #3498db;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .btn-view:hover {
+        background-color: #2980b9;
+    }
+
+    .btn-back {
+        background-color: #e74c3c;
+    }
+
+    .btn-back:hover {
+        background-color: #c0392b;
+    }
+
+    /* Additional styles for the back button */
+    .btn-back {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+{% block title %}GD List{% endblock %}
+{% block content %}
+<div class="gd-list">
+    <h1>GD List</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>GD ID</th>
+                <th>National ID</th>
+                <th>Status</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in gd_list %}
+            <tr>
+                <td>{{ item.full_name }}</td>
+                <td>{{ item.subject }}</td>
+                <td>{{ item.gd_id }}</td>
+                <td>{{ item.national_id }}</td>
+                <td>{{ item.status }}</td>
+                <td>
+                    <a class="btn-view" href="{% url 'gd_details' gd_id=item.gd_id %}">View</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn-back" href="{% url 'home' %}">Back to Dashboard</a>
+</div>
+{% endblock %}

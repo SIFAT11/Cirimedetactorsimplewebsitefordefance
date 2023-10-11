@@ -1,0 +1,36 @@
+
+<!--This page is register page-->
+{%extends 'index.html'%}
+{% load static %}
+{% block title %} Login Option{% endblock %}
+{%block code%}{%endblock%}
+{%block content %}
+<body>
+	<link rel="stylesheet" href="{% static 'assets/css/theme.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/loopple.css' %}">
+	<link rel="stylesheet" href="{% static 'form.css' %}">
+	<div class="container-fluid">
+		<div class="row ">
+			<!-- IMAGE CONTAINER BEGIN -->
+			<div class="col-lg-6 col-md-6 d-none d-md-block infinity-image-container"></div>
+			<!-- IMAGE CONTAINER END -->
+
+			<!-- FORM CONTAINER BEGIN -->
+			<div class="col-lg-6 col-md-6 infinity-form-container">
+				<div class="col-lg-9 col-md-12 col-sm-8 col-xs-12 infinity-form">
+					<!-- Company Logo -->
+
+					<div class="container">
+						<h2>Select Your Role</h2>
+						<a href="{% url 'policlogin'%}" class="btn btn-primary">Police</a>
+						<a href="{% url 'juglogin'%}" class="btn btn-primary">Judge</a>
+						<a href="{% url 'login'%}" class="btn btn-primary">User</a>
+						<a href="{% url 'admin_login'%}" class="btn btn-primary">Admin</a>
+					</div>
+				</div>
+			</div>
+			<!-- FORM CONTAINER END -->
+		</div>
+	</div>
+</body>
+{%endblock%}

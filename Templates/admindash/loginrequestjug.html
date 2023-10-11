@@ -1,0 +1,108 @@
+{% extends 'index2.html' %}
+{% load static %}
+{% block sec %}
+<style>
+    /* Custom CSS for the rejection list */
+    .rejection-list {
+        padding: 120px;
+    }
+
+    .rejection-list h1 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    table.table-bordered {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table.table-bordered th, table.table-bordered td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+    }
+
+    table.table-bordered th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+
+    .btn-success {
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .btn-success:hover {
+        background-color: #45a049;
+    }
+
+    .btn-details {
+        background-color: #3498db;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .btn-details:hover {
+        background-color: #2980b9;
+    }
+</style>
+{% endblock %}
+{% block title %}Rejection List{% endblock %}
+{% block content %}
+<div class="rejection-list">
+    <h1>Rejection List</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Judge ID</th>
+                <th>Age</th>
+                <th>Phone</th>
+                <th>Gender</th>
+                <th>Status</th>
+                <th>Actions</th>
+                <th>Actions</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for judge in judges %}
+            <tr>
+                <td>{{ judge.jugid }}</td>
+                <td>{{ judge.age }}</td>
+                <td>{{ judge.phone }}</td>
+                <td>{{ judge.gender }}</td>
+                <td>{{ judge.status }}</td>
+                <td>
+                    <a class="btn-edit" href="{% url 'judge_profile' judge.id %}">VIEW</a>
+                </td>
+                
+                <td>
+                    <a class="btn-success" href="{% url 'approve_judge' judge.pk %}">Approve</a>
+                </td>
+                
+                <td>
+                    <a class="btn-success" href="{% url 'reject_judge' judge.pk %}">Reject</a>
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

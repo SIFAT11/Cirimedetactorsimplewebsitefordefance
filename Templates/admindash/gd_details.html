@@ -1,0 +1,113 @@
+{% extends 'index2.html' %}
+{% load static %}
+{% block sec %}{%endblock%}
+{% block title %}Accept List{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GD Details</title>
+    <style>
+        /* Reset default styles and set some global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+#header {
+    background-color: #333;
+    text-align: center;
+    padding: 20px;
+}
+
+/* GD information container styles */
+#gd-info {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 128px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 5px;
+    animation: containerAnimation 3s ease-in-out;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    animation: textAnimation 1s ease-in-out;
+}
+
+@keyframes textAnimation {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+p {
+    margin: 10px 0;
+    color: #555;
+    animation: textAnimation 2s ease-in-out;
+}
+
+strong {
+    color: #333;
+}
+
+.btn-back {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-back:hover {
+    background-color: #2980b9;
+}
+
+/* Define styles for specific elements */
+
+    </style>
+</head>
+<body>
+    <div id="gd-info">
+        <h2>GD Information</h2>
+        <br>
+        <a class="btn-back" href="{% url 'accept' %}">Back</a>
+        <br>
+        <br>
+        <p><strong>GD ID:</strong> {{ gd_instance.gd_id }}</p>
+        <p><strong>Name:</strong> {{ gd_instance.full_name }}</p>
+        <p><strong>Father's Name:</strong> {{ gd_instance.father_name }}</p>
+        <p><strong>Mother's Name:</strong> {{ gd_instance.mother_name }}</p>
+        <p><strong>Email:</strong> {{ gd_instance.email }}</p>
+        <p><strong>District:</strong> {{ gd_instance.district }}</p>
+        <p><strong>Sub-district:</strong> {{ gd_instance.sub_district }}</p>
+        <p><strong>Village:</strong> {{ gd_instance.village }}</p>
+        <p><strong>National ID:</strong> {{ gd_instance.national_id }}</p>
+        <p><strong>Birth Date:</strong> {{ gd_instance.birth_date }}</p>
+        <p><strong>Gender:</strong> {{ gd_instance.get_gender_display }}</p>
+        <p><strong>GD Date:</strong> {{ gd_instance.gd_date }}</p>
+        <p><strong>Subject:</strong> {{ gd_instance.subject }}</p>
+        <p><strong>Incident Details:</strong> {{ gd_instance.incident_details }}</p>
+        <p><strong>Status:</strong> {{ gd_instance.get_status_display }}</p>
+        <p><strong>GD ID:</strong> {{ gd_instance.gd_id }}</p>
+    </div>
+</body>
+</html>
+{%endblock%}

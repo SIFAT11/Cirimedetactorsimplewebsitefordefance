@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <link rel="stylesheet" href="{% static 'style.css'%}">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <section id="menu">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="">
+            <h2>DIA</h2>
+        </div>
+        <div class="items">
+            <li><i class="fa-solid fa-chart-pie"></i><a href="{% url 'index4'%}">Dashboard</a></li>
+            <li><i class="fa-regular fa-credit-card"></i><a href="{% url 'poacceptgd'%}">Total GD</a></li>
+        </div>        
+    </section>
+
+    <section id="interface">
+        {%block cod%}
+        <div class="navigation">
+            <div class="n1">
+                <div>
+                    <i id="menu-btn" class="fas fa-bars"></i>
+                </div>
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>
+            <div class="profile">
+                <i class="fa-solid fa-bell"></i>
+                {% if user.is_authenticated %}
+                    <form method="POST" action="{% url 'jug_logout'%}">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'juglogin'%}">Login</a>
+                {% endif %}
+            </div>                      
+        </div>
+        {%if user.is_authenticated%}
+        <h3 class="i-name">
+            Police Dashboard
+         </h3>
+         <div class="values">
+             <div class="val-box">
+                 <i class="fas fa-users"></i>
+                 <div>
+                     <h3></h3>
+                     <span>Upcoming</span>
+                 </div>
+             </div>
+         
+             <div class="val-box">
+                 <i class="fas fa-shopping-cart"></i>
+                 <div>
+                     <h3>{{ acceptdgd  }}</h3>
+                     <span>Admin Approve</span>
+                 </div>
+             </div>
+ 
+             <div class="val-box">
+                 <i class="fa-solid fa-square-check"></i>
+                 <div>
+                     <h3>{{ totalgd|default:"0"}}</h3>
+                     <span>Total GD</span>
+                 </div>
+             </div>
+ 
+             <div class="val-box">
+                 <i class="fas fa-dollar-sign"></i>
+                 <div>
+                     <h3></h3>
+                     <span>Upcoming</span>
+                 </div>
+             </div>
+         </div>
+         {%endif%}
+        {%endblock%}
+  
+    {%block content %}
+    {%endblock%}
+    </section>
+
+    <script>
+        $('#menu-btn').click(function(){
+            $('#menu').toggleClass("active");
+        })
+    </script>
+</body>
+</html>
+

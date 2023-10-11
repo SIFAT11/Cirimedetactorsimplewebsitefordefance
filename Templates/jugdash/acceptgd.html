@@ -1,0 +1,88 @@
+{% extends 'index3.html' %}
+{% load static %}
+{% block co %}
+    <style>
+        /* Custom CSS for the acceptance list */
+        .accept-list {
+            padding: 128px;
+        }
+
+        .accept-list h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .table-bordered {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .table-bordered th, .table-bordered td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .table-bordered th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .table-bordered td {
+            text-align: center;
+        }
+
+        .btn-accept {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-accept:hover {
+            background-color: #45a049;
+        }
+
+        .btn-accept a {
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+{% endblock %}
+{% block title %}Accept List{% endblock %}
+{% block content %}
+<div class="accept-list">
+    <h1 style="text-align: center;">Accept List</h1>
+    <br>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Gd_ID</th>
+                <th>National ID</th>
+                <th>Status</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in accept_list %}
+            <tr>
+                <td>{{ item.full_name }}</td>
+                <td>{{ item.subject }}</td>
+                <td>{{ item.gd_id }}</td>
+                <td>{{ item.national_id }}</td>
+                <td>{{ item.status }}</td>
+                <td>
+                    <a href="{% url 'gdview' gd_id=item.gd_id %}" class="btn-accept">VIEW</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

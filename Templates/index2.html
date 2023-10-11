@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <link rel="stylesheet" href="{% static 'style.css'%}">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <section id="menu">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="">
+            <h2>DIA</h2>
+        </div>
+        <div class="items">
+                <li><i class="fa-solid fa-chart-pie"></i><a href="{%url 'index2'%}">DashBoard</a></li>
+                <li><i class="fa-brands fa-uikit"></i><a href="{% url 'loginrequestjug'%}">Login Request Judge</a></li>   
+                <li><i class="fa-brands fa-uikit"></i><a href="{% url 'loginpo'%}">Login Request Police</a></li>                   
+                <li><i class="fa-regular fa-table"></i><a href="{% url 'accept'%}">Accept list</a></li>
+                <li><i class="fa-solid fa-pen-to-square"></i><a href="{%url 'reject'%}">Reject List</a></li>   
+        </div>
+    </section>
+    <section id="interface">
+        <div class="navigation">
+            <div class="n1">
+                <div>
+                    <i id="menu-btn" class="fas fa-bars"></i>
+                </div>
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>
+            <div class="profile">
+                <i class="fa-solid fa-bell"></i>
+                {% if user.is_authenticated %}
+                    <form method="POST" action="{% url 'admin_logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'admin_login' %}">Login</a>
+                {% endif %}
+            </div>        
+        </div>
+
+        {% block content %}
+                <!-- Your content for the 'content' block goes here -->
+        {% endblock %}
+
+        {%block sec%}
+        <h3 class="i-name">
+           Admin Dashboard
+        </h3>
+        <div class="values">
+            <div class="val-box">
+                <i class="fas fa-users"></i>
+                <div>
+                    <h3>{{total_login_users}}</h3>
+                    <span>Total Users</span>
+                </div>
+            </div>
+        
+            <div class="val-box">
+                <i class="fas fa-shopping-cart"></i>
+                <div>
+                    <h3>{{ total_gd }}</h3>
+                    <span>Total GD</span>
+                </div>
+            </div>
+
+            <div class="val-box">
+                <i class="fa-solid fa-square-check"></i>
+                <div>
+                    <h3>{{ accepted_gd_count }}</h3>
+                    <span>Total Accept</span>
+                </div>
+            </div>
+            
+
+            <div class="val-box">
+                <i class="fas fa-dollar-sign"></i>
+                <div>
+                    <h3>{{ rejected_gd_amount|default:"0" }}</h3>
+                    <span>Total Reject</span>
+                </div>
+            </div>
+        </div>
+        <div class="board">
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Subject</td>
+                        <td>Gd_Id</td>
+                        <td>National</td>
+                        <td>Status</td>    
+                        <td style="padding: 0px 0px 0px 109px;">Options</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for person in gdlist %}
+                    <tr>
+                        <td class="people">
+                            <img src="{% static 'images/img-2.jpg' %}" alt="">
+                            <div class="people-des">
+                                <h5>{{ person.full_name }}</h5>
+                                <p>{{ person.email }}</p>
+                            </div>
+                        </td>
+                        <td class="people-designation">
+                            <h5>{{ person.designation }}</h5>
+                            <p>{{ person.subject }}</p>
+                        </td>
+                        <td class="idGd">
+                            <h5>{{ person.gd_id }}</h5>
+                        </td>
+                        <td class="idGd">
+                            <h5>{{ person.national_id }}</h5>
+                        </td>
+                        <td class="active">
+                            <p>{{ person.status }}</p>
+                        </td>
+                        
+
+                        <td class="sif">
+                            <form method="POST" action="{% url 'accept_gd' person.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">Accept</button>
+                            </form>
+                        </td>
+                        <td class="sif">
+                            <form method="POST" action="{% url 'reject_gd' person.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Reject</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>                
+            </table>
+        </div>
+        {%endblock%}
+    </section>
+    <style>
+        .sif{
+            margin: 10px 10px 10px 10px;
+
+        }
+
+        .sif .btn-success{
+            background-color: #5cb85c;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 20px 10px 20px;
+        }
+        .sif .btn-danger{
+            background-color: #d9534f;
+            color: #fff;
+            padding: 10px 20px 10px 20px;
+            border-radius: 10px;
+        }
+        .sif .btn-success:hover{
+            background-color: #449d44;
+        }
+        .sif .btn-danger:hover{
+            background-color: #c9302c;
+        }
+    </style>
+    <script>
+        $('#menu-btn').click(function(){
+            $('#menu').toggleClass("active");
+        })
+    </script>
+</body>
+</html>
+
+
+
