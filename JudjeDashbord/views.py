@@ -5,8 +5,10 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from UserDashbord.models import GDForm
+from django.contrib.auth.decorators import login_required
 
 
+@login_required(login_url='/loginoption/')
 def index3(request):
     totalgd = GDForm.objects.all().count()
     acceptdgd = GDForm.objects.filter(status='Taken').count()
@@ -50,9 +52,6 @@ def jugregister(request):
         # Create the JudgeProfile
         judge_profile = JudgeProfile(jugid=user, age=age, phone=phone, gender=gender, image=image)
         judge_profile.save()
-
-        # Log the user in
-        login(request, user)
 
         messages.success(request, "Registration successful. You are now logged in.")
         return redirect('juglogin')

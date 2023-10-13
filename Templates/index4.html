@@ -16,8 +16,9 @@
             <h2>DIA</h2>
         </div>
         <div class="items">
-            <li><i class="fa-solid fa-chart-pie"></i><a href="{% url 'index4'%}">Dashboard</a></li>
-            <li><i class="fa-regular fa-credit-card"></i><a href="{% url 'poacceptgd'%}">Total GD</a></li>
+            <li><i class="fa-solid fa-chart-pie"></i><a href="{% url 'home4'%}">Dashboard</a></li>
+            <li><i class="fa-regular fa-credit-card"></i><a href="{% url 'policlogin'%}">Police Login</a></li>
+            <li><i class="fa-regular fa-credit-card"></i><a href="{% url 'poacceptgd'%}">Total Police Gd</a></li>
         </div>        
     </section>
 
@@ -36,12 +37,12 @@
             <div class="profile">
                 <i class="fa-solid fa-bell"></i>
                 {% if user.is_authenticated %}
-                    <form method="POST" action="{% url 'jug_logout'%}">
+                    <form method="POST" action="{% url 'policlogout'%}">
                         {% csrf_token %}
                         <button type="submit">Logout</button>
                     </form>
                 {% else %}
-                    <a href="{% url 'juglogin'%}">Login</a>
+                    <a href="{% url 'policlogin'%}">Login</a>
                 {% endif %}
             </div>                      
         </div>
